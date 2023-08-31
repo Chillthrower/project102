@@ -22,7 +22,7 @@ const handleChange =e=>{
 const handleSubmit= async e=>{
   e.preventDefault()
   try{
-    const res= await axios.post("auth/register",inputs);
+    await axios.post("auth/register",inputs);
     navigate("/login")
    
   }

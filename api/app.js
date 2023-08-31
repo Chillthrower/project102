@@ -46,5 +46,5 @@ app.use('/api/users', userRoutes);
 //     }
 //     console.log(results.rows);
 // })
-PORT = process.env.PORT || 3000;
+PORT = process.env.PORT || 5000;
 app.listen(PORT,()=>console.log(`Backend is running on : ${PORT}`))

@@ -5,6 +5,7 @@ import {
   Outlet,
 } from "react-router-dom";
 
+
 import Register from "./pages/register";
 import Login from "./pages/login"
 import Write from "./pages/Write"
@@ -56,6 +57,14 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+
+  // useEffect(() => {
+  //   fetch("http://localhost:8000/api/")
+  //     .then((res) => res.json())
+  //     .then((data) => setMessage(data.message));
+  // }, []);
+
+
   return (
     <div className="app">
       <div class="container">
