@@ -44,3 +44,31 @@
 
 // // close the MySQL connection
 // connection.end();
+
+// import mysql from "mysql"
+
+// export const db = mysql.createConnection({
+//   host:"localhost",
+//   user:"root",
+//   password: process.env.DB_KEY,
+//   database:"blog"
+// })
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const mysql = require('mysql2/promise'); // Using promise-based version
+
+const app = express();
+const PORT = 5000;
+
+app.use(bodyParser.json());
+
+const db = mysql.createPool({
+    host: 'db',
+    user: 'qwert',
+    password: '12345',
+    database: 'project102',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});

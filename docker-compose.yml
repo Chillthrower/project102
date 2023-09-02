@@ -1,0 +1,67 @@
+# version: '3'
+# services:
+#   db:
+#     image: mysql
+#     healthcheck:
+#       test: "mysql -uqwert -p12345 -e 'select 1;'"
+#       interval: 1s
+#       retries: 20
+#     volumes:
+#       - ./dbdata:/var/lib/mysql
+#       - ./db.sql:/docker-entrypoint-initdb.d/db.sql
+#     ports:
+#       - "3306:3306"
+#     environment:
+#       MYSQL_ROOT_PASSWORD: 12345
+#       MYSQL_DATABASE: project102
+#       MYSQL_USER: qwert
+
+#   app:
+#     build: .
+#     command: ["./wait-for-it.sh", "db:3306", "--", "npm", "run", "dev"]
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       - db
+
+version: '3'
+services:
+
+  api:
+    image: node:14
+    container_name: project102-api
+    working_dir: /app/api
+    volumes:
+      - ./api:/app/api
+    environment:
+      - BROWSER=none
+    command: npm run start 
+    depends_on:
+      - db
+    ports:
+      - "4000:4000" 
+
+  client:
+    image: node:14
+    container_name: project102-client
+    working_dir: /app/client
+    volumes:
+      - ./client:/app/client
+    environment:
+      - BROWSER=none
+    command: npm start
+    ports:
+      - "3000:3000" 
+
+  db:
+    image: mysql:8.1
+    container_name: project102-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: project102
+      MYSQL_USER: qwert
+    ports:
+      - "3306:3306" 
+    volumes:
+      - ./dbdata:/var/lib/mysql 
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
